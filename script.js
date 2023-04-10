@@ -1,3 +1,85 @@
+var startButton = document.getElementById('start-btn')
+var nextButton = document.getElementById('next-btn')
+var questionContainerElement = document.getElementById('quiz-container')
+var questionElement = document.getElementById('question')
+var answerButtonsElement = document.getElementById('answer-buttons')
+
+let currentQuestionIndex
+
+startButton.addEventListener('click', startQuiz)
+nextButton.addEventListener('click', () => {
+    currentQuestionIndex++
+})
+
+console.log('lets begin')
+function startQuiz(){
+    console.log('Lets Begin')
+    startButton.classList.add('hide')
+    // shuffledQuestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
+    questionContainerElement.classList.remove('hide')
+    setNextQuestion()
+
+}
+
+function setNextQuestion(){
+    resetState()
+//  showQuestion(shuffledQuestions[currentQuestionIndex])
+}
+
+
+function showQuestion(question) {
+    questionElement.innerText = question.question
+    question.answers.forEach(answer => {
+            var button = document.createElement('button')
+            button.innerText = answer.text
+            button.classList.add('btn')
+            if (answer.correct) {
+                button.dataset.correct = answer.correct
+            }
+            button.addEventListener('click', selectAnswer)
+            answerButtonsElement.appendChild(button)
+    })
+}
+function resetState(){
+    nextButton.classList.add('hide')
+    while (answerButtonsElement.firstChild) {
+        // answerButtonsElement.removeChild
+        (answerButtonsElement.firstchild)
+    }
+}
+function selectAnswer(e){
+    var selectedButton = e.target
+    var correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+    nextButton.classList.remove('hide')
+
+}
+
+function setStatusClass(element, correct) {
+    clearsStatusClass(element)
+    if (correct) {
+        element.classList.add ('correct')
+    }   else {
+        element.classList.add ('wrong')
+    }
+}
+
+var questions = [
+    {
+        question: 'Why is a breed-up program necessary in the USA for the Valais Blacknosed Sheep?',
+        answers: [
+            {text: 'The Valais sheep has gone extinct', correct: false },
+            {text: 'The USDA does not currently permit the import of live sheep from other countries', correct: true },
+            {text: 'The Valais sheep is a new hybrid species developed for consumption that will rival GMO impossible burger meat', correct: false},
+            {text: 'You can never have enough sheep', correct: false}
+        ]
+    }
+]
+
 // 1. Why is a breed-up program necessary in the USA for the Valais Blacknosed Sheep?
     // a. The Valais Sheep has gone extinct
     // b. The USDA does not currently permit the import of live sheep from other countries
