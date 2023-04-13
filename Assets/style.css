@@ -49,17 +49,20 @@ body {
     border: 1px solid darkmagenta;
     border-radius: 5px;
     padding: 5px 10px;
-    color: white;
+    color: whitesmoke;
     outline: none;
 
 
 }
 
-.btn:hover {
+.btn:hover:not([disable]){
     border-color: darkcyan;
 }
+.btn:disabled {
+    cursor: no-drop;
+}
 
-.start-btn, .next.btn {
+.start-btn, .next-btn {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 10px 20px;
