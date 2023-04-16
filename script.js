@@ -29,6 +29,7 @@ const questions = [
 ];
 console.log("startbutton")
 const questionContainer = document.getElementById('question-container');
+const timerEl = document.getElementById("timer");
 const questionElement = document.getElementById("question");
 const answerButton = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
@@ -83,7 +84,7 @@ function selectAnswer(e) {
   const question = questions[currentQuestion];
   const correctAnswer = question.choices[question.answerIndex];
 
-  showResults();
+  // showResults();
 
  
   
