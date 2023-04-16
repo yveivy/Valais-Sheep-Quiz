@@ -164,7 +164,7 @@ function saveScore(event) {
   localStorage.setItem("highScores", JSON.stringify(highScores));
   const scoreEl = docuement.getElementById("score");
   scoreEl.textContent = `Score: ${totalScore}`;
-  // window.location.href = "highscores.html";
+  window.location.href = "highscores.html";
 }
 
 playAgainBtn.addEventListener("click", () => {
