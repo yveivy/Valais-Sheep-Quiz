@@ -1,3 +1,5 @@
+// Ultimately removed the save scores and highscores because I could not get it to work properly
+
 
 const questions = [
   {
@@ -38,13 +40,16 @@ const endElement = document.getElementById("end-quiz");
 const initialsInput = document.getElementById("initials");
 const submitBtn = document.querySelector("input[type='submit']");
 const playAgainBtn = document.getElementById("play-again-btn");
+const scoreEl = document.getElementById("score");
 const highScoresBtn = document.getElementById("high-scores-btn");
+
 
 
 let score = 0;
 let time = 20;
 let currentQuestion = 0;
 let timerInterval;
+// let finalScore = score + time;
 
 endElement.classList.add('hide');
 
@@ -53,7 +58,7 @@ console.log("startbutton")
 nextButton.addEventListener('click', () => {
   currentQuestion++;
   setNextQuestion();
-  
+
 });
 
 function beginQuiz() {
@@ -67,40 +72,46 @@ function beginQuiz() {
 
 function setNextQuestion() {
   resetState();
-  if (currentQuestion === questions.length){
+  if (currentQuestion === questions.length) {
     endQuiz();
-  }else {
-  displayQuestion(questions[currentQuestion]);
+  } else {
+    displayQuestion(questions[currentQuestion]);
   }
 }
 
 function resetState() {
+  // adds CSS class 'hide' to the next button so that the button disappears if the quiz is complete
   nextButton.classList.add('hide');
+  // removes all the answer buttons which were appended till there are no more left if the quiz has ended
   while (answerButton.firstChild) {
     answerButton.removeChild(answerButton.firstChild);
   }
 }
 
 function displayQuestion(question) {
+  // writes a question from the array of questions and clears out the answers
   questionElement.innerText = question.text;
   answerButton.innerHTML = '';
-
+  // Loop for the answer choices, if the current question is less than the total questions, then the next question is called
   for (let i = 0; i < question.choices.length; i++) {
     const button = document.createElement('button');
     button.innerText = question.choices[i];
     button.classList.add('btn');
+    // event listener for the answer choice selection
     button.addEventListener('click', selectAnswer);
     answerButton.appendChild(button);
   }
-
-  if (currentQuestion < questions.length){
+  // 
+  if (currentQuestion < questions.length) {
+    // if current question is less than the total questions then add + 1 for the current Question
     question.textContent = questions[currentQuestion].question;
     question.choices.forEach((choice, index) => {
-    
+
       choice.textContent = questions[currentQuestion].choices[index];
     });
+    // had to change from currentQuestion++ to currentQuestion + 1 because only every other question was being displayed.
     currentQuestion + 1;
-  
+
   }
 
 }
@@ -111,14 +122,14 @@ function selectAnswer(e) {
   const question = questions[currentQuestion];
   const correctAnswer = question.choices[question.answerIndex];
 
-  // showResults();
 
 
 
   if (userChoice === correctAnswer) {
+    // if the answer selection is correct, add +1 to the score
     score++;
 
-  } 
+  }
 
 
   currentQuestion = currentQuestion + 1;
@@ -140,41 +151,55 @@ function startTimer() {
     time--;
     timerEl.textContent = `Time: ${time}`;
     if (time <= 0) {
-        endQuiz();
+      // If the timer ends before all the questions have been answered then the quiz is ended.
+      endQuiz();
     }
   }, 1000);
 }
 
 function endQuiz() {
+  // start the timer over
   clearInterval(timerInterval);
+  // Hide the question container when the quiz is ended and unhide the End Quiz element
   questionContainer.classList.add("hidden");
   endElement.classList.remove("hide");
 
 }
 
-submitBtn.addEventListener("click", saveScore);
+// submitBtn.addEventListener("click", saveScore);
 
-function saveScore(event) {
-  event.preventDefault();
-  const initials = initialsInput.value;
-  const score = score + time;
-  let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-  highScores.push({initials, score});
-  highScores = highScores.sort((a, b) => b.score - a.score);
-  localStorage.setItem("highScores", JSON.stringify(highScores));
-  const scoreEl = docuement.getElementById("score");
-  scoreEl.textContent = `Score: ${totalScore}`;
-  window.location.href = "highscores.html";
-}
+
+// function saveScore(event) {
+//   event.preventDefault();
+//   const initials = initialsInput.value;
+//   const totalScore = score;
+//   const scoreEl = document.getElementById("score")
+
+//   if (scoreEl) {
+//     scoreEl.textContent = 'Score: ${totalScore}'
+//   }
+//   // Gets the high scores from local storage, or creates an empty array if there are no high scores yet
+
+//   let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+//   // adds the current score and initials to the high scores array
+//   highScores.push({ initials, score });
+//   // sorts the high score
+//   highScores = highScores.sort((a, b) => b.score - a.score);
+//   // stores high scores in local storage
+//   localStorage.setItem("highScores", JSON.stringify(highScores));
+//   // displays total score
+//   // scoreEl.textContent = `Score: ${totalScore}`;
+//   window.location.href = "highscores.html";
+// }
 
 playAgainBtn.addEventListener("click", () => {
   window.location.reload();
 });
 
-highScoresBtn.addEventListener("click", () => {
-  window.location.href = "highscores.html";
+// highScoresBtn.addEventListener("click", () => {
+//   window.location.href = "highscores.html";
 
-});
+// });
 
 
 
