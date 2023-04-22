@@ -15,7 +15,10 @@ The process can be confusing so new breeders have a ton of questions. Many of th
 
 Press the start button and begin a series of 5 questions with 4 potential answers. A timer begins counting down from 20 seconds, so you have to move through the questions quickly if you want to finish the quiz on time.
 
-After all questions are answered, you are informed with of how many questions you answered correctly out of 5. 
+After all questions are answered, you are informed of how many questions you answered correctly out of 5. 
 
 Play again if you want to improve your score!
+
+## Valais Quiz site link
+https://yveivy.github.io/Valais-Sheep-Quiz/
 
