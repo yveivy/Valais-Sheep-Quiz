@@ -2,7 +2,7 @@
 
 This short quiz will help breeders determine if you have the knowledge needed to undertake your own Valais Sheep breeding program!
 
-![Alt text](assets/valaisquizscreenshot.jpeg)
+![alt text](assets/screencapture-yveivy-github-io-Valais-Sheep-Quiz-2023-04-21-20_18_42.jpegj)
 
 
 ## Motivation
